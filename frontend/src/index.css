@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.box {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    width: 200px;
+    height:auto; 
+    padding:0.5rem 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    animation: shadowAnimation 3s infinite;
+}
+@keyframes shadowAnimation {
+    0% {
+        box-shadow: 0 0 7px 0 rgba(123, 39, 213, 0.3);
+    }
+    25% {
+        box-shadow: 0 0 10px 2px rgba(55, 248, 81, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 10px 2px rgba(36, 138, 186, 0.5);
+    }
+    75% {
+        box-shadow: 0 0 10px 2px rgba(255, 0, 0, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 8px 0 rgba(201, 93, 184, 0.3);
+    }
+}
