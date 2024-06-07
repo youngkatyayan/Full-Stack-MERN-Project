@@ -50,7 +50,7 @@ const Header = () => {
 
           <div className='flex items-center justify-between gap-3 sm:gap-7'>
             <div className='' >
-              {logoImages ? (<img className='h-10 w-10 rounded-full' onClick={() => setShowMenu(prev => !prev)} src={logoImages} alt="User" />) : (
+              {logoImages && user? (<img className='h-10 w-10 rounded-full' onClick={() => setShowMenu(prev => !prev)} src={logoImages} alt="User" />) : (
                 <FaRegUserCircle className='text-3xl' />
               )}
             </div>
@@ -60,7 +60,6 @@ const Header = () => {
               </div>
               ) : ''
             }
-
             <div className=' relative flex'>
               <FaShoppingCart className='text-xl' />
 

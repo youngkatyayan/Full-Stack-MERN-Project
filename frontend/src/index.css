@@ -30,3 +30,29 @@
         box-shadow: 0 0 8px 0 rgba(201, 93, 184, 0.3);
     }
 }
+.animated-border {
+    width: 200px;
+    height: 200px;
+    border-radius:0px 5px  5px 0px; 
+    border: 2px groove;
+    border-color: red;
+    animation: borderSwing 2s infinite;
+}
+
+@keyframes borderSwing {
+    0% {
+        border-color: red;
+    }
+    25% {
+        border-color: blue;
+    }
+    50% {
+        border-color: green;
+    }
+    75% {
+        border-color: yellow;
+    }
+    100% {
+        border-color: red;
+    }
+}

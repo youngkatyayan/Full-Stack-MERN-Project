@@ -24,7 +24,6 @@ const Login = () => {
             if (fetData.data.success) {
                 const ximages = fetData.data.result[0].images
                 localStorage.setItem('images', ximages);
-
                 toast.success(fetData.data.message)
                 setInterval(() => {
                     navigate('/')

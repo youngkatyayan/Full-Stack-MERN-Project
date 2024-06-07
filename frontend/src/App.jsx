@@ -7,6 +7,7 @@ import Login from './pages/Login.jsx'
 import ForgetPassword from './pages/ForgetPassword.jsx'
 import SignUp from './pages/SignUp.jsx'
 import AdminPage from './components/admin/AdminPage.jsx'
+// import Header from './components/Layouts/Header.jsx'
 const App = () => {
 
   return (

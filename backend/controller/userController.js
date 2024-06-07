@@ -180,7 +180,7 @@ export const adminDataController = async (req, res) => {
     }
 
     const sql = "SELECT * FROM signup WHERE images = ?";
-    
+
     db.query(sql, [images], (err, result) => {
       if (err) {
         return res.status(502).send({
@@ -189,14 +189,13 @@ export const adminDataController = async (req, res) => {
           error: err.message,
         });
       }
-      
+
       return res.status(200).send({
         success: true,
         message: "Data successfully accessed",
         result,
       });
     });
-
   } catch (error) {
     return res.status(500).send({
       success: false,
@@ -205,4 +204,31 @@ export const adminDataController = async (req, res) => {
     });
   }
 };
-// just
+// just get all data
+
+export const getDataController = async(req, res) => {
+  try {
+    console.log("user Id", req.userId);
+    const sql = "Select * from signup ";
+    db.query(sql, (err, result) => {
+      if (err) {
+        return res.status(502).send({
+          success: false,
+          message: "Internal error",
+          error: err.message,
+        });
+      }
+      return res.status(200).send({
+        success: true,
+        message: "All Data accessed",
+        result,
+      });
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "Something went wrong in the get all data controller",
+      error: error.message,
+    });
+  }
+};
