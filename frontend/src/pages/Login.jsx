@@ -6,6 +6,7 @@ import { FaEyeSlash } from "react-icons/fa"
 import { BiShow } from "react-icons/bi";
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { useLocation } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast'
 const Login = () => {
     const [showPass, setShowPass] = useState(false)
@@ -13,6 +14,7 @@ const Login = () => {
     const [pass, setpass] = useState('')
     // const [values,setvaues]=useState([])
     const navigate = useNavigate()
+    const locaction = useLocation()
     const PassHandle = () => {
         setShowPass((prev) => !prev)
     }
@@ -27,10 +29,13 @@ const Login = () => {
                 toast.success(fetData.data.message)
                 setInterval(() => {
                     navigate('/')
+                    window.location.href='/'
                 }, 1000)
             }
             else {
                 toast.error("Wrong Password")
+                localStorage.removeItem('images', ximages);
+
             }
         } catch (error) {
             toast.error("Invalid user")

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home.jsx'
@@ -7,9 +7,13 @@ import Login from './pages/Login.jsx'
 import ForgetPassword from './pages/ForgetPassword.jsx'
 import SignUp from './pages/SignUp.jsx'
 import AdminPage from './components/admin/AdminPage.jsx'
-// import Header from './components/Layouts/Header.jsx'
+import Allusers from './pages/Allusers.jsx'
+import { useNavigate } from 'react-router-dom'
 const App = () => {
-
+  const navigate = useNavigate()
+  useEffect(() => {
+  }, []);
+const token = localStorage.getItem('images')
   return (
     <>
       <Routes>
@@ -18,7 +22,13 @@ const App = () => {
         <Route path='/login' element={<Login />}></Route>
         <Route path='/forget-password' element={<ForgetPassword />} />
         <Route path='/signup' element={<SignUp />}></Route>
-        <Route path='/adminpage' element={<AdminPage/>}></Route>
+        {token && (
+          <Route path='/adminpage' element={<AdminPage />}> </Route>
+        )}
+        {token && (
+          <Route path='/adminpage/allusers' element={<Allusers />} />
+        )}
+
       </Routes>
     </>
   )
