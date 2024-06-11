@@ -20,3 +20,62 @@
   font-weight: 700;
   font-style: italic;
 }
+@keyframes colorChange {
+    0% { color: red; }
+    25% { color: blue; }
+    50% { color: green; }
+    75% { color: purple; }
+    100% { color: red; }
+}
+
+.username {
+    font-size: 48px;
+    animation: colorChange 4s infinite;
+}
+@keyframes borderColorChange {
+    0% { border-color: red; }
+    25% { border-color: blue; }
+    50% { border-color: green; }
+    75% { border-color: purple; }
+    100% { border-color: red; }
+}
+
+.border-animated {
+    font-size: 4px;
+    padding: 1px;
+    border: 2px solid;
+    display: inline-block;
+    box-shadow: 0 0 2px 1px red;
+
+    animation: borderColorChange 4s infinite;
+}
+
+@keyframes borderColorChange {
+    0% { border-color: red; }
+    25% { border-color: blue; }
+    50% { border-color: green; }
+    75% { border-color: purple; }
+    100% { border-color: red; }
+}
+
+@keyframes textColorChange {
+    0% { color: red; }
+    25% { color: blue; }
+    50% { color: green; }
+    75% { color: purple; }
+    100% { color: red; }
+}
+
+@keyframes scaleUpDown {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.combined-animated {
+    font-size: 3px;
+    padding: 1px;
+    border: 2px solid;
+    display: inline-block;
+    animation: borderColorChange 4s infinite, textColorChange 4s infinite, scaleUpDown 4s infinite;
+}
+

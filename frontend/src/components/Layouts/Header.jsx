@@ -13,12 +13,10 @@ const Header = () => {
   const logoImages = localStorage.getItem('images')
   const dispatch = useDispatch()
   const user = useSelector((state) => state?.user?.user);
-  // console.log(user)
   const handleClick = async () => {
     try {
       const fetchData = await axios.get('/api/v1/logout')
       if (fetchData.data.success) {
-        localStorage.removeItem('images');
         toast.success(fetchData.data.message)
         dispatch(setUserDetails(null))
         window.location.href = '/'
@@ -30,8 +28,6 @@ const Header = () => {
       console.log(error.message)
     }
   }
-  // const userImage = user[0]?.images ? user[0].images : null;
-
   return (
     <>
       <div className='h-16 px-5 sm:px-10 shadow-lg '>
@@ -44,13 +40,13 @@ const Header = () => {
           <div className='hidden md:flex'>
             <label htmlFor="" className='h-7 w-[15rem]  flex max-w-sm items-center justify-between pr-2 rounded-full bg-red-600 focus-within:shadow-lg'>
               <input type="search" className=' rounded-s-lg  px-2 pb-1 outline-none ' placeholder='search product here...' />
-              <IoIosSearch className='font-mono text-xl' />
+              <IoIosSearch className='font-mono text-xl ' />
             </label>
           </div>
 
           <div className='flex items-center justify-between gap-3 sm:gap-7'>
             <div className='' >
-              {logoImages && user? (<img className='h-10 w-10 rounded-full' onClick={() => setShowMenu(prev => !prev)} src={logoImages} alt="User" />) : (
+              {logoImages && user ? (<img className='h-10 w-10 rounded-full' onClick={() => setShowMenu(prev => !prev)} src={logoImages} alt="User" />) : (
                 <FaRegUserCircle className='text-3xl' />
               )}
             </div>

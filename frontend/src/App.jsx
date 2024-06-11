@@ -9,11 +9,12 @@ import SignUp from './pages/SignUp.jsx'
 import AdminPage from './components/admin/AdminPage.jsx'
 import Allusers from './pages/Allusers.jsx'
 import { useNavigate } from 'react-router-dom'
+import AllProduct from './pages/AllProduct.jsx'
 const App = () => {
   const navigate = useNavigate()
   useEffect(() => {
   }, []);
-const token = localStorage.getItem('images')
+  const token = localStorage.getItem('images')
   return (
     <>
       <Routes>
@@ -22,13 +23,9 @@ const token = localStorage.getItem('images')
         <Route path='/login' element={<Login />}></Route>
         <Route path='/forget-password' element={<ForgetPassword />} />
         <Route path='/signup' element={<SignUp />}></Route>
-        {token && (
-          <Route path='/adminpage' element={<AdminPage />}> </Route>
-        )}
-        {token && (
-          <Route path='/adminpage/allusers' element={<Allusers />} />
-        )}
-
+        <Route path='/adminpage' element={<AdminPage />}> </Route>
+        <Route path='/adminpage/allusers' element={<Allusers />} />
+        <Route path='/adminpage/allproject' element={<AllProduct />} />
       </Routes>
     </>
   )

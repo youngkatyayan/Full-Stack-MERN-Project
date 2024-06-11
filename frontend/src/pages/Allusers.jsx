@@ -38,7 +38,7 @@ const Allusers = () => {
     return (
         <>
             <Layouts>
-                <div className='flex gap-2'>
+                <div className='min-h-[calc(100vh-4rem)] flex gap-5'>
                     <div className=''>
                         <AdminMenu />
                     </div>
