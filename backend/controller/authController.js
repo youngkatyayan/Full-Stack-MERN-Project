@@ -2,7 +2,7 @@ import db from "../utils/db.js";
 
 export const authController = async (req, res) => {
   try {
-    console.log("userId", req.userId);
+    // console.log("userId", req.userId);
     const sql = "select * from signup";
     db.query(sql, (err, result) => {
       if (err) {

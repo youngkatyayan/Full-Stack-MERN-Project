@@ -30,7 +30,7 @@ const AdminMenu = () => {
         <div className='sm:w-[19vw] w-[12rem] min-h-[calc(100vh-4rem)] bg-white animated-border' style={{ boxShadow: '3px 0px 5px 2px #ddd' }}>
             <div className='flex items-center justify-center mt-4 mb-5 '>
                 {logoImages ? (
-                    <img className='h-20 w-20 rounded-full border-x-2 combined-animated border-animated shadow-red-600' src={logoImages} alt="User" />
+                    <img className='h-20 w-20 rounded-full border-x-2  combined-animated border-animated shadow-red-600 ' src={logoImages} alt="User" />
                 ) : (
                     <FaRegUserCircle className='text-3xl' />
                 )}

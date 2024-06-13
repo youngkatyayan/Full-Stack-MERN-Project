@@ -1,14 +1,14 @@
 import express from "express";
 import multer from "multer";
 import path from "path";
-import {authToken} from '../middlewares/authMiddlewares.js'
 import {
   userRegisterController,
   userLoginController,
   userLogOutController,
   forgetController,
-  adminDataController,getDataController
+  adminDataController,getDataController,updateController
 } from "../controller/userController.js";
+import { authToken } from "../middlewares/authMiddlewares.js";
 
 const router = express.Router();
 const uploadDir = path.resolve('X:/Desktop/E-Commerce/backend/images');
@@ -32,6 +32,7 @@ router.put('/forget-password', forgetController);
 // get data
 router.get('/getadmindata/:images', adminDataController);
 // const all data
-router.get('/gets-alldata',getDataController)
-
+router.get('/gets-alldata',authToken,getDataController)
+// update dat
+router.put('/update-data/:Id',authToken, updateController);
 export default router;

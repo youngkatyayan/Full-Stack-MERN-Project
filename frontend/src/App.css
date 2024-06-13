@@ -79,3 +79,39 @@
     animation: borderColorChange 4s infinite, textColorChange 4s infinite, scaleUpDown 4s infinite;
 }
 
+.pnf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   flex-direction: column;
+   min-height: 65vh;
+ }
+ .pnf-404{
+     font-size: 100px;
+     font-weight: 700;
+     font-weight: normal;
+ }
+ .pnf-oopx{
+ font-size:  2rem;
+ }
+ .pnf-btn{
+     padding: 0.3rem 0.8rem;
+     background-color: black;
+     color: aliceblue;
+     border-radius:5px;
+ }
+ .pnf-btn:hover{
+     background-color: aliceblue;
+     color: black;
+ 
+ }
+ .popup{
+    z-index: 10;
+   top: 20%;
+   left: 50%;
+   transform: translate(-50%);
+ }
+ .popupBack{
+    background: white;
+    opacity:0.4;
+ }

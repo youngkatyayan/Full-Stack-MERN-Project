@@ -206,9 +206,9 @@ export const adminDataController = async (req, res) => {
 };
 // just get all data
 
-export const getDataController = async(req, res) => {
+export const getDataController = async (req, res) => {
   try {
-    console.log("user Id", req.userId);
+    // console.log("usern Id", req.userId);
     const sql = "Select * from signup ";
     db.query(sql, (err, result) => {
       if (err) {
@@ -232,3 +232,55 @@ export const getDataController = async(req, res) => {
     });
   }
 };
+// update data controller
+// controllers/userController.js
+
+export const updateController = async (req, res) => {
+    try {
+      const { Id } = req.params; 
+        const { name, username, pass, phone, role } = req.body;
+
+        // Validate request body
+        if (!name) return res.status(400).send({ error: "Name is required", name });
+        if (!username) return res.status(400).send({ error: "Username is required", username });
+        if (!pass) return res.status(400).send({ error: "Password is required", pass });
+        if (!phone) return res.status(400).send({ error: "Phone is required", phone });
+        if (!role) return res.status(400).send({ error: "Role is required", role });
+        // console.log("Update request received for Id:", Id);
+        // console.log("Update request body:", req.body);
+        // // SQL query to update user data
+        const sql = 'UPDATE signup SET name = ?, username = ?, pass = ?, phone = ?, role = ? WHERE Id = ?';
+        const values = [name, username, pass, phone, role, Id];
+
+        db.query(sql, values, (err, result) => {
+            if (err) {
+                // console.error("Database error: ", err.message);
+                return res.status(500).send({
+                    success: false,
+                    message: "Internal error",
+                    error: err.message,
+                });
+            }
+            // if (result.affectedRows === 0) {
+            //     console.warn("No rows updated, possibly invalid Id");
+            //     return res.status(404).send({
+            //         success: false,
+            //         message: "User not found",
+            //     });
+            // }
+            return res.status(200).send({
+                success: true,
+                message: "Update successful",
+                result,
+            });
+        });
+    } catch (error) {
+        // console.error("Controller error: ", error.message);
+        return res.status(500).send({
+            success: false,
+            message: "Something went wrong in the update data controller",
+            error: error.message,
+        });
+    }
+};
+

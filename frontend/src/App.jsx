@@ -10,6 +10,7 @@ import AdminPage from './components/admin/AdminPage.jsx'
 import Allusers from './pages/Allusers.jsx'
 import { useNavigate } from 'react-router-dom'
 import AllProduct from './pages/AllProduct.jsx'
+import Pagenotfound from './pages/PageNotFound.jsx'
 const App = () => {
   const navigate = useNavigate()
   useEffect(() => {
@@ -19,6 +20,7 @@ const App = () => {
     <>
       <Routes>
         <Route path='/' exact element={<Home />}></Route>
+        <Route path='/*'  element={<Pagenotfound />}></Route>
         <Route path='/aboutpage' element={<AboutPage />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/forget-password' element={<ForgetPassword />} />
