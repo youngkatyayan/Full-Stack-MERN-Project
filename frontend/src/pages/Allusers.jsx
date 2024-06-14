@@ -13,7 +13,7 @@ const Allusers = () => {
         id: '',
         name: '',
         username: '',
-        pass: '',
+        pass: '',               //this is not required actually
         phone: '',
         role: ''
     });

@@ -233,8 +233,6 @@ export const getDataController = async (req, res) => {
   }
 };
 // update data controller
-// controllers/userController.js
-
 export const updateController = async (req, res) => {
     try {
       const { Id } = req.params; 
