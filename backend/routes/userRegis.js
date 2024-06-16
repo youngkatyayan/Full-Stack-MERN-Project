@@ -6,7 +6,7 @@ import {
   userLoginController,
   userLogOutController,
   forgetController,
-  adminDataController,getDataController,updateController
+  adminDataController,getDataController,updateController,roleController
 } from "../controller/userController.js";
 import { authToken } from "../middlewares/authMiddlewares.js";
 
@@ -35,4 +35,6 @@ router.get('/getadmindata/:images', adminDataController);
 router.get('/gets-alldata',authToken,getDataController)
 // update dat
 router.put('/update-data/:Id',authToken, updateController);
+// getRole
+router.get('/get-role/:encodedImages',roleController)
 export default router;

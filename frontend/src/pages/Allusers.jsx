@@ -4,7 +4,8 @@ import { MdModeEdit } from 'react-icons/md';
 import Layouts from '../components/Layouts/Layouts';
 import AdminMenu from '../components/admin/AdminMenu';
 import { RxCross2 } from "react-icons/rx";
-
+import toast, { Toaster } from 'react-hot-toast'
+import moment from 'moment';
 const Allusers = () => {
     const [result, setResult] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -49,13 +50,13 @@ const Allusers = () => {
         try {
             const response = await axios.put(`/api/v1/update-data/${Id}`, updated);
             if (response.data.success) {
-                alert(response.data.message);
                 setUpdatePage(false);
                 fetchData();
+                toast.success(response.data.message)
             }
         } catch (error) {
             console.log(error);
-            alert("An error occurred while updating the user");
+            toast.error("An error occurred while updating the user");
         }
     };
 
@@ -63,7 +64,6 @@ const Allusers = () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = result.slice(indexOfFirstItem, indexOfLastItem);
-
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const updateHandle = (value) => {
@@ -73,6 +73,7 @@ const Allusers = () => {
 
     return (
         <Layouts>
+            <Toaster/>
             <div className='min-h-[calc(100vh-4rem)] flex gap-5'>
                 <div>
                     <AdminMenu />
@@ -81,7 +82,7 @@ const Allusers = () => {
                     <div className={`mt-2 overflow-x-auto ${updatePage && 'popupBack'}`} style={{ boxShadow: '0 0 5px 2px #ddd' }}>
                         <table className='w-full userTable p-2'>
                             <thead>
-                                <tr>
+                                <tr className='bg-black text-white px-2'>
                                     <th>Sr.</th>
                                     <th>Name</th>
                                     <th>Username</th>
@@ -90,6 +91,7 @@ const Allusers = () => {
                                     <th>Mobile No.</th>
                                     <th>Role</th>
                                     <th>Image</th>
+                                    <td>Time</td>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -104,6 +106,7 @@ const Allusers = () => {
                                             <td>{item?.pass}</td>
                                             <td>{item?.phone}</td>
                                             <td>{item?.role}</td>
+                                            <td>{ moment(item.created_at).format('LL') }</td>
                                             <td className='w-16 h-12'><img src={item?.images} alt="" /></td>
                                             <td>
                                                 <button onClick={() => updateHandle(item)} className='text-center mx-auto text-xl bg-green-100 p-2 rounded-full hover:bg-green-600 hover:text-white hover:border-2 hover:shadow-md hover:shadow-green-600'>
