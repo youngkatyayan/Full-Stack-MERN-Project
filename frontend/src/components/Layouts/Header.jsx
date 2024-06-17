@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserDetails } from '../../store/userSlice';
+import { setUserDetails } from '../../store/userSlice.jsx';
 import logo from '../../assest/images.png';
 const Header = () => {
   // const navigate = useNavigate();
@@ -15,18 +15,20 @@ const Header = () => {
   const images = localStorage.getItem('images');
   const dispatch = useDispatch();
   const user = useSelector((state) => state?.user?.user);
-
   const handleAdmin = async () => {
     setShowMenu(prev => !prev);
     const encodedImages = images ? encodeURIComponent(images) : '';
-  
     try {
       if (images) {
         const { data } = await axios.get(`/api/v1/get-role/${encodedImages}`);
         if (data.success) {
           setResult(data.result);
+          const role=data.result[0].role
+          sessionStorage.setItem('role',role)
         } else {
           console.error('Error fetching admin data:', data.error);
+          sessionStorage.removeItem('role')
+
         }
       } else {
         console.error('No images found in localStorage');
@@ -35,8 +37,6 @@ const Header = () => {
       console.error('Error fetching admin data:', error.message);
     }
   };
-  
-
   const handleClick = async () => {
     try {
       const fetchData = await axios.get('/api/v1/logout');
@@ -51,7 +51,6 @@ const Header = () => {
       console.error(error.message);
     }
   };
-
   return (
     <>
       <div className='h-16 px-5 sm:px-10 shadow-lg'>

@@ -8,28 +8,30 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast'
+import { useDispatch } from 'react-redux'
+import { setUserRole } from '../store/userSlice.jsx';
 const Login = () => {
     const [showPass, setShowPass] = useState(false)
     const [email, setemail] = useState('')
     const [pass, setpass] = useState('')
-    // const [values,setvaues]=useState([])
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const locaction = useLocation()
     const PassHandle = () => {
         setShowPass((prev) => !prev)
     }
-    // console.log(values.email)
     const submitForm = async (e) => {
         e.preventDefault()
         try {
             const fetData = await axios.post('/api/v1/login', { email, pass })
             if (fetData.data.success) {
+                dispatch(setUserRole(fetData.data.result))
                 const ximages = fetData.data.result[0].images
                 localStorage.setItem('images', ximages);
                 toast.success(fetData.data.message)
                 setInterval(() => {
                     navigate('/')
-                    window.location.href='/'
+                    // window.location.href = '/'
                 }, 1000)
             }
             else {
@@ -70,7 +72,7 @@ const Login = () => {
                                         <input type="email" required name="email" value={email} onChange={(e) => setemail(e.target.value)} id=""
                                             placeholder='abc@gmail.com'
                                             className='sm:ml-2 ml-2 pl-1 outline-none h-6 pb-1 w-full my-1 focus-within:border-none text-gray-400' />
-                                        
+
                                     </div>
 
                                     <div className=' mt-8 sm:mt-5 flex gap-4 border-b-2 justify-center items-center md:mt-8'>
