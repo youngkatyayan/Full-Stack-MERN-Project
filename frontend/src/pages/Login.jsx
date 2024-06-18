@@ -31,7 +31,7 @@ const Login = () => {
                 toast.success(fetData.data.message)
                 setInterval(() => {
                     navigate('/')
-                    // window.location.href = '/'
+                    window.location.href = '/'
                 }, 1000)
             }
             else {

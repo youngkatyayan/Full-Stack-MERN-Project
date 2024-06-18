@@ -16,11 +16,10 @@ const App = () => {
   const navigate = useNavigate()
   useEffect(() => {
   }, []);
-  const user = useSelector(state => state.user.user);
-  const role = useSelector(state => state.user.role);
- console.log(user)
-    console.log(role)
   
+  const role = useSelector(state => state.user.role[0].role);
+
+
   return (
     <>
       <Routes>
