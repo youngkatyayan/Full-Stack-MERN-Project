@@ -8,18 +8,16 @@ import ForgetPassword from './pages/ForgetPassword.jsx'
 import SignUp from './pages/SignUp.jsx'
 import AdminPage from './components/admin/AdminPage.jsx'
 import Allusers from './pages/Allusers.jsx'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import AllProduct from './pages/AllProduct.jsx'
 import Pagenotfound from './pages/PageNotFound.jsx'
 import { useSelector } from 'react-redux'
 const App = () => {
-  const navigate = useNavigate()
-  useEffect(() => {
-  }, []);
-  
-  const role = useSelector(state => state.user.role[0].role);
-
-
+  const role = sessionStorage.getItem('role')
+  const user = useSelector((state) => state?.user?.user);
+  if (user == null) {
+    sessionStorage.removeItem('role')
+  }
   return (
     <>
       <Routes>
@@ -29,11 +27,14 @@ const App = () => {
         <Route path='/login' element={<Login />}></Route>
         <Route path='/forget-password' element={<ForgetPassword />} />
         <Route path='/signup' element={<SignUp />}></Route>
-        {role == 'ADMIN' ?
+        {role ?
           <Route path='/adminpage' element={<AdminPage />}> </Route> : '/'
         }
-        <Route path='/adminpage/allusers' element={<Allusers />} />
+        {role ?
+          <Route path='/adminpage/allusers' element={<Allusers />} /> : '/'
+        }
         <Route path='/adminpage/allproject' element={<AllProduct />} />
+
       </Routes>
     </>
   )

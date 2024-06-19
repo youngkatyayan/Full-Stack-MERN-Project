@@ -11,16 +11,9 @@ export const userSlice = createSlice({
       state.user = action.payload
       // console.log("action", action.payload)
     },
-    setUserRole:(state,action)=>{
-      state.role=action.payload
-    },
-    clearUser: (state) => {
-      state.user = null;
-      state.role = null;
-    },
   },
 })
 
-export const { setUserDetails,setUserRole,clearUser  } = userSlice.actions
+export const { setUserDetails,setUserRole  } = userSlice.actions
 
 export default userSlice.reducer

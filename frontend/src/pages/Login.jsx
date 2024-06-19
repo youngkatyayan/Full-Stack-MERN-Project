@@ -8,13 +8,13 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast'
-import { useDispatch } from 'react-redux'
-import { setUserRole } from '../store/userSlice.jsx';
+// import { useDispatch } from 'react-redux'
+// import { setUserRole } from '../store/userSlice.jsx';
 const Login = () => {
     const [showPass, setShowPass] = useState(false)
     const [email, setemail] = useState('')
     const [pass, setpass] = useState('')
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     const navigate = useNavigate()
     const locaction = useLocation()
     const PassHandle = () => {
@@ -25,7 +25,7 @@ const Login = () => {
         try {
             const fetData = await axios.post('/api/v1/login', { email, pass })
             if (fetData.data.success) {
-                dispatch(setUserRole(fetData.data.result))
+                // dispatch(setUserRole(fetData.data.result))
                 const ximages = fetData.data.result[0].images
                 localStorage.setItem('images', ximages);
                 toast.success(fetData.data.message)

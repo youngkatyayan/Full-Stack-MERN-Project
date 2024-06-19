@@ -18,9 +18,7 @@ const Allusers = () => {
         phone: '',
         role: ''
     });
-
     const itemsPerPage = 8;
-
     const fetchData = async () => {
         try {
             const response = await axios.get('/api/v1/gets-alldata');
@@ -31,11 +29,9 @@ const Allusers = () => {
             console.log(error.message);
         }
     };
-
     useEffect(() => {
         fetchData();
     }, []);
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUpdated({
@@ -73,7 +69,7 @@ const Allusers = () => {
 
     return (
         <Layouts>
-            <Toaster/>
+            <Toaster />
             <div className='min-h-[calc(100vh-4rem)] flex gap-5'>
                 <div>
                     <AdminMenu />
@@ -106,7 +102,7 @@ const Allusers = () => {
                                             <td>{item?.pass}</td>
                                             <td>{item?.phone}</td>
                                             <td>{item?.role}</td>
-                                            <td>{ moment(item.created_at).format('LL') }</td>
+                                            <td>{moment(item.created_at).format('LL')}</td>
                                             <td className='w-16 h-12'><img src={item?.images} alt="" /></td>
                                             <td>
                                                 <button onClick={() => updateHandle(item)} className='text-center mx-auto text-xl bg-green-100 p-2 rounded-full hover:bg-green-600 hover:text-white hover:border-2 hover:shadow-md hover:shadow-green-600'>
@@ -122,30 +118,34 @@ const Allusers = () => {
                                 )}
                             </tbody>
                         </table>
-                        <div className='flex justify-end my-2 mr-12'>
-                            <button
-                                onClick={() => paginate(currentPage - 1)}
-                                disabled={currentPage === 1}
-                                className='px-3 py-1 mx-1 bg-gray-200 rounded disabled:opacity-50'
-                            >
-                                Prev
-                            </button>
-                            {Array.from({ length: totalPages }, (_, index) => (
+                        <div className='flex  items-center justify-between'>
+                        <p className='text-blue-600 cursor-pointer'>Get Print</p>
+                            <div className='flex justify-end my-2 mr-12'>
                                 <button
-                                    key={index}
-                                    onClick={() => paginate(index + 1)}
-                                    className={`px-3 py-1 mx-1 ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200'} rounded-full`}
+                                    onClick={() => paginate(currentPage - 1)}
+                                    disabled={currentPage === 1}
+                                    className='px-3 py-1 mx-1 bg-gray-200 rounded disabled:opacity-50'
                                 >
-                                    {index + 1}
+                                    Prev
                                 </button>
-                            ))}
-                            <button
-                                onClick={() => paginate(currentPage + 1)}
-                                disabled={currentPage === totalPages}
-                                className='px-3 py-1 mx-1 bg-gray-200 rounded disabled:opacity-50'
-                            >
-                                Next
-                            </button>
+                                {Array.from({ length: totalPages }, (_, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => paginate(index + 1)}
+                                        className={`px-3 py-1 mx-1 ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200'} rounded-full`}
+                                    >
+                                        {index + 1}
+                                    </button>
+                                ))}
+                                <button
+                                    onClick={() => paginate(currentPage + 1)}
+                                    disabled={currentPage === totalPages}
+                                    className='px-3 py-1 mx-1 bg-gray-200 rounded disabled:opacity-50'
+                                >
+                                    Next
+                                </button>
+                            </div>
+                           
                         </div>
                     </div>
 

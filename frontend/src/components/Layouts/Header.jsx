@@ -9,12 +9,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUserDetails } from '../../store/userSlice.jsx';
 import logo from '../../assest/images.png';
 const Header = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [result, setResult] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
   const images = localStorage.getItem('images');
   const dispatch = useDispatch();
   const user = useSelector((state) => state?.user?.user);
+  // console.log(user)
+  
   const handleAdmin = async () => {
     setShowMenu(prev => !prev);
     const encodedImages = images ? encodeURIComponent(images) : '';

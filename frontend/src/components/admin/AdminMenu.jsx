@@ -3,6 +3,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import axios from 'axios';
 import { sideItem } from '../common/index.jsx';
 import { Link } from 'react-router-dom'
+// import { useSelector } from 'react-redux'
 const AdminMenu = () => {
     const paths = [
         '/adminpage/allusers',
@@ -24,6 +25,7 @@ const AdminMenu = () => {
     useEffect(() => {
         handleAdmin();
     }, []);
+  
     return (
         <div className='sm:w-[19vw] w-[12rem] min-h-[calc(100vh-4rem)] hidden md:block bg-white animated-border' style={{ boxShadow: '3px 0px 5px 2px #ddd' }}>
             <div className='flex items-center justify-center mt-4 mb-5 '>
@@ -40,7 +42,7 @@ const AdminMenu = () => {
             </div>
             <div className=' flex flex-col gap-4 mt-5 mx-[2vw]'>
                 {sideItem.map((item, index) => (
-                    <Link to={paths[index]} className='text-lg cursor-pointer hover:border-2 hover:rounded-full py-1 ps-3 hover:shadow-md hover:shadow-blue-400 hover:bg-blue-700 hover:text-white flex items-center gap-2 whitespace-nowrap' key={index}><p className='text-2xl'>{item.icon}</p>{item.name}</Link>
+                    <Link to={paths[index]}  className='text-lg cursor-pointer hover:border-2 hover:rounded-full py-1 ps-3 hover:shadow-md hover:shadow-blue-400 hover:bg-blue-700 hover:text-white flex items-center gap-2 whitespace-nowrap' key={index}><p className='text-2xl'>{item.icon}</p>{item.name}</Link>
                 ))}
             </div>
         </div>

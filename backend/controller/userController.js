@@ -285,7 +285,7 @@ export const updateController = async (req, res) => {
     });
   }
 };
-// get role controller
+
 export const roleController = async (req, res) => {
   try {
     const { encodedImages } = req.params;
