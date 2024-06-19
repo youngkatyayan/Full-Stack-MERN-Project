@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MdModeEdit } from 'react-icons/md';
 import Layouts from '../components/Layouts/Layouts';
 import AdminMenu from '../components/admin/AdminMenu';
@@ -66,6 +66,44 @@ const Allusers = () => {
         setUpdatePage(true);
         setUpdated(value);
     };
+    const printStyles = `
+    <style>
+      @media print {     
+        img {
+            max-width:100px;
+            height:100px;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 20px 0;
+          font-size: 18px;
+          text-align: left;
+        }
+        th, td {
+          padding: 12px;
+          border-bottom: 1px solid #ddd;
+        }
+        th {
+          background-color: #f2f2f2;
+        }
+        tr:hover {
+          background-color: #f5f5f5;
+        }
+       
+      }
+    </style>
+  `;
+    const tableRef = useRef()
+    const handlePrint = () => {
+        const printContent = tableRef.current;
+        const win = window.open('width=900', 'height=650')
+        win.document.write(printStyles, printContent.outerHTML)
+        win.document.close();
+        win.onload = () => {
+            win.print();
+        };
+    }
 
     return (
         <Layouts>
@@ -76,7 +114,7 @@ const Allusers = () => {
                 </div>
                 <div className='w-full overflow-x-auto relative'>
                     <div className={`mt-2 overflow-x-auto ${updatePage && 'popupBack'}`} style={{ boxShadow: '0 0 5px 2px #ddd' }}>
-                        <table className='w-full userTable p-2'>
+                        <table className='w-full userTable p-2' ref={tableRef}>
                             <thead>
                                 <tr className='bg-black text-white px-2'>
                                     <th>Sr.</th>
@@ -86,8 +124,8 @@ const Allusers = () => {
                                     <th>Password</th>
                                     <th>Mobile No.</th>
                                     <th>Role</th>
-                                    <th>Image</th>
                                     <td>Time</td>
+                                    <th>Image</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -103,7 +141,7 @@ const Allusers = () => {
                                             <td>{item?.phone}</td>
                                             <td>{item?.role}</td>
                                             <td>{moment(item.created_at).format('LL')}</td>
-                                            <td className='w-16 h-12'><img src={item?.images} alt="" /></td>
+                                            <td className='w-16 h-12'><img src={item.images} alt='Image' /></td>
                                             <td>
                                                 <button onClick={() => updateHandle(item)} className='text-center mx-auto text-xl bg-green-100 p-2 rounded-full hover:bg-green-600 hover:text-white hover:border-2 hover:shadow-md hover:shadow-green-600'>
                                                     <MdModeEdit />
@@ -119,7 +157,7 @@ const Allusers = () => {
                             </tbody>
                         </table>
                         <div className='flex  items-center justify-between'>
-                        <p className='text-blue-600 cursor-pointer'>Get Print</p>
+                            <p className='text-blue-600 cursor-pointer' onClick={handlePrint}>Get Print</p>
                             <div className='flex justify-end my-2 mr-12'>
                                 <button
                                     onClick={() => paginate(currentPage - 1)}
@@ -145,7 +183,7 @@ const Allusers = () => {
                                     Next
                                 </button>
                             </div>
-                           
+
                         </div>
                     </div>
 

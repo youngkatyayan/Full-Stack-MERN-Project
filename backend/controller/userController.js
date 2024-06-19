@@ -285,7 +285,6 @@ export const updateController = async (req, res) => {
     });
   }
 };
-
 export const roleController = async (req, res) => {
   try {
     const { encodedImages } = req.params;
@@ -329,3 +328,4 @@ export const roleController = async (req, res) => {
     });
   }
 };
+

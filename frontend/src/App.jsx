@@ -15,9 +15,9 @@ import { useSelector } from 'react-redux'
 const App = () => {
   const role = sessionStorage.getItem('role')
   const user = useSelector((state) => state?.user?.user);
-  if (user == null) {
-    sessionStorage.removeItem('role')
-  }
+  // if (user == null) {
+  //   sessionStorage.removeItem('role')
+  // }
   return (
     <>
       <Routes>
@@ -28,7 +28,7 @@ const App = () => {
         <Route path='/forget-password' element={<ForgetPassword />} />
         <Route path='/signup' element={<SignUp />}></Route>
         {role ?
-          <Route path='/adminpage' element={<AdminPage />}> </Route> : '/'
+          <Route path='/adminpage' element={<AdminPage />}> </Route> : '/login'
         }
         {role ?
           <Route path='/adminpage/allusers' element={<Allusers />} /> : '/'
