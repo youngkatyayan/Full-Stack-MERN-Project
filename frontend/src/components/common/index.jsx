@@ -20,3 +20,17 @@ export const socialIcon = [
     { value: 'y1', icon: <FaYoutube />, link: '', animation: 'animate-ping' },
     { value: 'g1', icon: <FaGithubSquare />, link: 'https://github.com/youngkatyayan', animation: 'animate-pulse' }
 ]
+export const category=[
+    {name:'airpodes', value:'airpodes',id:1},
+    {name:'camera', value:'camera',id:2},
+    {name:'earphones', value:'earphones',id:3},
+    {name:'mobile', value:'mobile',id:4},
+    {name:'mouse', value:'mouse',id:5},
+    {name:'printers', value:'printers',id:6},
+    {name:'processor', value:'processor',id:7},
+    {name:'refrigerator', value:'refrigerator',id:8},
+    {name:'speakers', value:'speakers',id:9},
+    {name:'trimmers', value:'trimmers',id:10},
+    {name:'TV', value:'TV',id:11},
+    {name:'watches', value:'watches',id:12},
+]

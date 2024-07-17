@@ -7,6 +7,7 @@ import {
   userLogOutController,
   forgetController,
   adminDataController,getDataController,updateController,roleController
+  ,createProductController
 } from "../controller/userController.js";
 import { authToken } from "../middlewares/authMiddlewares.js";
 
@@ -37,4 +38,9 @@ router.get('/gets-alldata',authToken,getDataController)
 router.put('/update-data/:Id',authToken, updateController);
 // getRole
 router.get('/get-role/:encodedImages',roleController)
+
+
+
+// create Project
+router.post('create-product',createProductController)
 export default router;

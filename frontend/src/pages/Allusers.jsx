@@ -108,11 +108,11 @@ const Allusers = () => {
     return (
         <Layouts>
             <Toaster />
-            <div className='min-h-[calc(100vh-4rem)] flex gap-5'>
+            <div className='min-h-[100vh-4rem] flex gap-5'>
                 <div>
                     <AdminMenu />
                 </div>
-                <div className='w-full overflow-x-auto relative'>
+                <div className='w-full overflow-x-auto relative overflow-y-scroll min-h-[100vh-4rem]'>
                     <div className={`mt-2 overflow-x-auto ${updatePage && 'popupBack'}`} style={{ boxShadow: '0 0 5px 2px #ddd' }}>
                         <table className='w-full userTable p-2' ref={tableRef}>
                             <thead>
@@ -141,7 +141,7 @@ const Allusers = () => {
                                             <td>{item?.phone}</td>
                                             <td>{item?.role}</td>
                                             <td>{moment(item.created_at).format('LL')}</td>
-                                            <td className='w-16 h-12'><img src={item.images} alt='Image' /></td>
+                                           <td className='w-16 h-12'><img src={item.images} alt='Image' /></td>
                                             <td>
                                                 <button onClick={() => updateHandle(item)} className='text-center mx-auto text-xl bg-green-100 p-2 rounded-full hover:bg-green-600 hover:text-white hover:border-2 hover:shadow-md hover:shadow-green-600'>
                                                     <MdModeEdit />

@@ -329,3 +329,15 @@ export const roleController = async (req, res) => {
   }
 };
 
+// create product controller
+export const createProductController=async(req,res)=>{
+  try {
+    
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "Something went wrong in the create product controller",
+      error: error.message,
+    });
+  }
+}

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 const AdminMenu = () => {
     const paths = [
         '/adminpage/allusers',
-        '/adminpage/allproject',
+        '/adminpage/allproject'
     ];
     const [result, setResult] = useState([]);
     const logoImages = localStorage.getItem('images');
