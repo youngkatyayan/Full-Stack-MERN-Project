@@ -42,5 +42,9 @@ router.get('/get-role/:encodedImages',roleController)
 
 
 // create Project
-router.post('/create-product',createProductController)
+// router.post('/create-product',createProductController)
+router.post('/create-product', (req, res, next) => {
+  console.log('Request received at /api/v1/create-product');
+  createProductController(req, res, next);
+})  
 export default router;

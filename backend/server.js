@@ -23,14 +23,16 @@ dotenv.config();
 const app = express();
 
 // middleWares
+
 app.use(express.json());
-app.use(
-  cors({
-    origin: ["http://localhost:5173/"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["http://localhost:5173/"],
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     credentials: true,
+//   })
+// );
+app.use(cors());
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -49,6 +51,10 @@ app.listen(port, () => {
   console.log(
     `Server is running at port : ${process.env.PORT}`.bgMagenta.white
   );
+});
+app.use((req, res, next) => {
+  console.log(`Received ${req.method} request to ${req.url}`);
+  next();
 });
 // =====================================================================================================
 // import express from 'express';

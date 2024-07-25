@@ -336,28 +336,22 @@ export const roleController = async (req, res) => {
 // create product controller
 export const createProductController = async (req, res) => {
   try {
-    const {
-      PName,
-      BName,
-      category,
-      productImage: [],
-      description,
-      price,
-    } = req.body;
+    const { PName, BName, category, productImage, description, price } =
+      req.body;
     const fieldData = {
       PName,
       BName,
       category,
-      productImage: [],
+      productImage,
       description,
       price,
     };
     for (const [filds, value] of Object.entries(fieldData)) {
-      if (!value) {
+      if (!value || (Array.isArray(value) && value.length === 0)) {
         return res.status(400).send({ error: `${filds} is required.` });
       }
     }
-    const sql = "select * from product where PName=?,BName=?";
+    const sql = "select * from product where prname=? and brname=?";
     const values = [PName, BName];
     db.query(sql, values, (err, result) => {
       if (err) {
@@ -367,11 +361,36 @@ export const createProductController = async (req, res) => {
           error: err.message,
         });
       }
-      if(result.length>0){
+      if (result.length > 0) {
         return res.status(200).send({
           success: true,
           message: "Already Present",
           error: err.message,
+        });
+      } else {
+        const sql =
+          "insert into product ( prname, brname,category,productImage,description,price) values (?,?,?,?,?,?)";
+        const values = [
+          PName,
+          BName,
+          category,
+          JSON.stringify(productImage),
+          description,
+          price,
+        ];
+        db.query(sql, values, (err, result) => {
+          if (err) {
+            return res.status(502).send({
+              success: false,
+              message: "Internal error",
+              error: err.message,
+            });
+          }
+          return res.status(201).send({
+            success: true,
+            message: "Created Successfully",
+            result,
+          });
         });
       }
     });

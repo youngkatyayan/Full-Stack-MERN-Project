@@ -21,12 +21,13 @@ const AllProduct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post('/api/v1/create-product', values)
+            const response = await axios.post('http://localhost:8080/api/v1/create-product', values);
             console.log(response)
         } catch (error) {
             console.log('Error on submittion')
         }
     }
+
     const handleUploadImage = async (e) => {
         const file = e.target.files[0];
         setImageName(file.name);
@@ -37,6 +38,7 @@ const AllProduct = () => {
             productImage: [...prev.productImage, uploadImageCloud.url]
         }));
     };
+
     // console.log(values.productImage)
     const handleChange = (e) => {
         const { name, value } = e.target;
