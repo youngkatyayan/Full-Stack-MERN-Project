@@ -27,7 +27,9 @@ const Login = () => {
             if (fetData.data.success) {
                 // dispatch(setUserRole(fetData.data.result))
                 const ximages = fetData.data.result[0].images
+                const token = fetData.data.token
                 localStorage.setItem('images', ximages);
+                localStorage.setItem('token',token );
                 toast.success(fetData.data.message)
                 setInterval(() => {
                     navigate('/')

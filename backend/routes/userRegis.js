@@ -42,5 +42,5 @@ router.get('/get-role/:encodedImages',roleController)
 
 
 // create Project
-router.post('create-product',createProductController)
+router.post('/create-product',createProductController)
 export default router;

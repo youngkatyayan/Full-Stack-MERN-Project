@@ -20,6 +20,9 @@ const ForgetPassword = () => {
         if (fetchData.data.success) {
           toast.success(fetchData.data.message)
         }
+       setTimeout(() => {
+         window.location.href='/login'
+       }, 1000);
       } 
       else {
         toast.error('Confirm password does not match new password')

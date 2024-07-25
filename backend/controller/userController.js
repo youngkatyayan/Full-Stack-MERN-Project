@@ -91,7 +91,11 @@ export const userLoginController = async (req, res) => {
           { expiresIn: "1h" }
         );
         res
-          .cookie("token", token, { httpOnly: true, secure: true })
+          .cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            maxAge: 60 * 60 * 1000,
+          })
           .status(200)
           .send({
             success: true,
@@ -330,9 +334,47 @@ export const roleController = async (req, res) => {
 };
 
 // create product controller
-export const createProductController=async(req,res)=>{
+export const createProductController = async (req, res) => {
   try {
-    
+    const {
+      PName,
+      BName,
+      category,
+      productImage: [],
+      description,
+      price,
+    } = req.body;
+    const fieldData = {
+      PName,
+      BName,
+      category,
+      productImage: [],
+      description,
+      price,
+    };
+    for (const [filds, value] of Object.entries(fieldData)) {
+      if (!value) {
+        return res.status(400).send({ error: `${filds} is required.` });
+      }
+    }
+    const sql = "select * from product where PName=?,BName=?";
+    const values = [PName, BName];
+    db.query(sql, values, (err, result) => {
+      if (err) {
+        return res.status(502).send({
+          success: false,
+          message: "Internal error",
+          error: err.message,
+        });
+      }
+      if(result.length>0){
+        return res.status(200).send({
+          success: true,
+          message: "Already Present",
+          error: err.message,
+        });
+      }
+    });
   } catch (error) {
     return res.status(500).send({
       success: false,
@@ -340,4 +382,4 @@ export const createProductController=async(req,res)=>{
       error: error.message,
     });
   }
-}
+};

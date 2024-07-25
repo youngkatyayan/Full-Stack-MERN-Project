@@ -12,31 +12,32 @@ const AllProduct = () => {
         PName: '',
         BName: '',
         category: '',
-
+        productImage: [],
+        description: '',
+        price: ''
     })
-    const [productImage, setproductImage] = useState([])
-
+    const [imageName, setImageName] = useState('')
     // handle submit function
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const image = productImage.name
         try {
-
-            const response = await axios.post('/api/v1/create-product', { values, image })
+            const response = await axios.post('/api/v1/create-product', values)
             console.log(response)
         } catch (error) {
             console.log('Error on submittion')
         }
     }
-
     const handleUploadImage = async (e) => {
-        const file = e.target.files[0]
-        setproductImage(file.name)
-        console.log('file', file)
-        const uploadImageCloud = await UploadImage(file)
-        console.log('uploadImageCloud', uploadImageCloud)
-    }
-
+        const file = e.target.files[0];
+        setImageName(file.name);
+        const uploadImageCloud = await UploadImage(file);
+        // console.log('uploadImageCloud', uploadImageCloud);
+        setValues((prev) => ({
+            ...prev,
+            productImage: [...prev.productImage, uploadImageCloud.url]
+        }));
+    };
+    // console.log(values.productImage)
     const handleChange = (e) => {
         const { name, value } = e.target;
         setValues({
@@ -92,7 +93,7 @@ const AllProduct = () => {
                                         </label>
                                     </div>
 
-                                    <div className='my-5'>
+                                    <div className='mt-5'>
                                         <label htmlFor="productImage" className='text-lg'>
                                             Product Image:
                                             <div className='w-full border-2 h-48 mt-1 rounded flex flex-col justify-center items-center bg-slate-100 cursor-pointer'>
@@ -108,11 +109,33 @@ const AllProduct = () => {
                                             </div>
                                         </label>
                                     </div>
+
                                     {
-                                        <div className='w-full overflow-x-scroll py-2 px-2 flex  gap-2'>
-                                            <img src="" alt="Images" />
-                                        </div>
+                                        values.productImage[0] ?
+                                            (<div className='w-full overflow-x-scroll py-2 px-2 flex  gap-2 mb-5'>
+                                                {values.productImage.map((items, index) => (
+                                                    <img key={index} src={items} height={80} width={80} alt="Images" />
+                                                )
+                                                )}
+                                            </div>
+                                            ) :
+                                            <p className='mb-5'>*Please upload product image</p>
                                     }
+
+                                    <div className='my-5'>
+                                        <label htmlFor="description" className='text-lg mb-1'>Description :
+                                            <input type="text" name="description" id="description" onChange={handleChange} value={values.description}
+                                                className='border-2 w-full px-2 py-2 outline-none mt-1' placeholder='Enter your description...' />
+                                        </label>
+                                    </div>
+
+                                    <div className='my-5'>
+                                        <label htmlFor="price" className='text-lg mb-1'>Price :
+                                            <input type="text" name="price" id="price" onChange={handleChange} value={values.price}
+                                                className='border-2 w-full px-2 py-2 outline-none mt-1' placeholder='Enter your price...' />
+                                        </label>
+                                    </div>
+
                                     <button type='submit' className='w-full mt-1 border py-1 font-semibold bg-red-700 text-white rounded'>Upload</button>
                                 </form>
                             </div>
