@@ -58,9 +58,9 @@ const Header = () => {
       <div className='h-16 px-5 sm:px-10 shadow-lg'>
         <Toaster />
         <div className='mx-auto container flex items-center justify-between'>
-          <div className='flex items-center no-wrap'>
+          <Link to={'/'} className='flex items-center no-wrap'>
             <img className='h-16 w-36' src={logo} alt="Logo" />
-          </div>
+          </Link>
 
           <div className='hidden md:flex'>
             <label htmlFor="" className='h-7 w-[15rem] flex max-w-sm items-center justify-between pr-2 rounded-full bg-red-600 focus-within:shadow-lg'>

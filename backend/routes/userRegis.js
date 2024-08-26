@@ -5,9 +5,9 @@ import {
   userRegisterController,
   userLoginController,
   userLogOutController,
-  forgetController,
-  adminDataController,getDataController,updateController,roleController
-  ,createProductController
+  forgetController,product_Controller,
+  adminDataController, getDataController, updateController, roleController
+  , createProductController, productController, updateProductController
 } from "../controller/userController.js";
 import { authToken } from "../middlewares/authMiddlewares.js";
 
@@ -33,11 +33,15 @@ router.put('/forget-password', forgetController);
 // get data
 router.get('/getadmindata/:images', adminDataController);
 // const all data
-router.get('/gets-alldata',authToken,getDataController)
+router.get('/gets-alldata', authToken, getDataController)
 // update dat
-router.put('/update-data/:Id',authToken, updateController);
+router.put('/update-data/:Id', authToken, updateController);
 // getRole
-router.get('/get-role/:encodedImages',roleController)
+router.get('/get-role/:encodedImages', roleController)
+
+//get-product
+router.get('/getproduct-data', productController)
+router.get('/get_product-data', product_Controller)
 
 
 
@@ -46,5 +50,6 @@ router.get('/get-role/:encodedImages',roleController)
 router.post('/create-product', (req, res, next) => {
   console.log('Request received at /api/v1/create-product');
   createProductController(req, res, next);
-})  
+})
+router.put('/update-product/:Id', updateProductController)
 export default router;

@@ -336,7 +336,7 @@ export const roleController = async (req, res) => {
 // create product controller
 export const createProductController = async (req, res) => {
   try {
-    const { PName, BName, category, productImage, description, price } =
+    const { PName, BName, category, productImage, description, price, imageName } =
       req.body;
     const fieldData = {
       PName,
@@ -345,14 +345,26 @@ export const createProductController = async (req, res) => {
       productImage,
       description,
       price,
+      imageName
     };
+
     for (const [filds, value] of Object.entries(fieldData)) {
       if (!value || (Array.isArray(value) && value.length === 0)) {
         return res.status(400).send({ error: `${filds} is required.` });
       }
     }
-    const sql = "select * from product where prname=? and brname=?";
-    const values = [PName, BName];
+
+    const sql =
+      "insert into product ( prname, brname,category,productImage,description,price,image_Name) values (?,?,?,?,?,?,?)";
+    const values = [
+      PName,
+      BName,
+      category,
+      JSON.stringify(productImage),
+      description,
+      price,
+      JSON.stringify(imageName),
+    ];
     db.query(sql, values, (err, result) => {
       if (err) {
         return res.status(502).send({
@@ -361,39 +373,14 @@ export const createProductController = async (req, res) => {
           error: err.message,
         });
       }
-      if (result.length > 0) {
-        return res.status(200).send({
-          success: true,
-          message: "Already Present",
-          error: err.message,
-        });
-      } else {
-        const sql =
-          "insert into product ( prname, brname,category,productImage,description,price) values (?,?,?,?,?,?)";
-        const values = [
-          PName,
-          BName,
-          category,
-          JSON.stringify(productImage),
-          description,
-          price,
-        ];
-        db.query(sql, values, (err, result) => {
-          if (err) {
-            return res.status(502).send({
-              success: false,
-              message: "Internal error",
-              error: err.message,
-            });
-          }
-          return res.status(201).send({
-            success: true,
-            message: "Created Successfully",
-            result,
-          });
-        });
-      }
+      return res.status(201).send({
+        success: true,
+        message: "Created Successfully",
+        result,
+      });
     });
+
+
   } catch (error) {
     return res.status(500).send({
       success: false,
@@ -402,3 +389,124 @@ export const createProductController = async (req, res) => {
     });
   }
 };
+
+export const product_Controller = async (req, res) => {
+  try {
+    const { PName, BName, category, productImage, description, price, imageName } =
+      req.body;
+    const fieldData = {
+      PName,
+      BName,
+      category,
+      productImage,
+      description,
+      price,
+      imageName
+    };
+
+    for (const [filds, value] of Object.entries(fieldData)) {
+      if (!value || (Array.isArray(value) && value.length === 0)) {
+        return res.status(400).send({ error: `${filds} is required.` });
+      }
+    }
+
+    const sql =
+      "insert into product ( prname, brname,category,productImage,description,price,image_Name) values (?,?,?,?,?,?,?)";
+    const values = [
+      PName,
+      BName,
+      category,
+      productImage,
+      description,
+      price,
+      JSON.stringify(imageName),
+    ];
+    db.query(sql, values, (err, result) => {
+      if (err) {
+        return res.status(502).send({
+          success: false,
+          message: "Internal error",
+          error: err.message,
+        });
+      }
+      return res.status(201).send({
+        success: true,
+        message: "Created Successfully",
+        result,
+      });
+    });
+
+
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "Something went wrong in the create product controller",
+      error: error.message,
+    });
+  }
+};
+
+// get product Controller
+export const productController = async (req, res) => {
+  try {
+    const sql = 'select * from product';
+    db.query(sql, (err, result) => {
+      if (err) {
+        res.status(404).send({
+          success: false,
+          message: 'Internal server Error'
+        })
+      }
+      res.status(200).send({
+        success: true,
+        message: 'Access Successfully',
+        result
+      })
+    })
+
+
+  } catch (error) {
+    console.log(error.message)
+    res.status(500).send({
+      success: false,
+      message: 'Something went wrong inside productController'
+    })
+  }
+}
+// update product controller
+
+export const updateProductController = async (req, res) => {
+  try {
+    const { Id } = req.params
+    const { PName, BName, category, description, price } = req.body
+    const fields = { PName, BName, category, description, price }
+    for (const [key, value] of Object.entries(fields)) {
+      if (!value) {
+        res.status(404).send({ error: `${key} is required` })
+      }
+    }
+    const sql = 'update product set prname=?, brname=?,category=?,description=?,price=? where Id=?'
+    const values = [PName, BName, category, description, price, Id]
+    db.query(sql, values, (err, result) => {
+      if (err) {
+        return res.status(502).send({
+          success: false,
+          message: "Internal error",
+          error: err.message,
+        });
+      }
+      return res.status(200).send({
+        success: true,
+        message: "Update Successfully",
+        result,
+      });
+    })
+
+  } catch (error) {
+    console.log(error.message)
+    res.status(500).send({
+      success: false,
+      message: 'Something went wrong inside updateProductController'
+    })
+  }
+}
