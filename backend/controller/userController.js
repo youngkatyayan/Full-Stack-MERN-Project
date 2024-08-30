@@ -390,38 +390,18 @@ export const createProductController = async (req, res) => {
   }
 };
 
-export const product_Controller = async (req, res) => {
+export const getProductCategoryWise = async (req, res) => {
   try {
-    const { PName, BName, category, productImage, description, price, imageName } =
-      req.body;
-    const fieldData = {
-      PName,
-      BName,
-      category,
-      productImage,
-      description,
-      price,
-      imageName
-    };
 
-    for (const [filds, value] of Object.entries(fieldData)) {
-      if (!value || (Array.isArray(value) && value.length === 0)) {
-        return res.status(400).send({ error: `${filds} is required.` });
-      }
-    }
+    const sql = `   SELECT 
+    DISTINCT *
+FROM 
+    product
+GROUP BY 
+    category`
 
-    const sql =
-      "insert into product ( prname, brname,category,productImage,description,price,image_Name) values (?,?,?,?,?,?,?)";
-    const values = [
-      PName,
-      BName,
-      category,
-      productImage,
-      description,
-      price,
-      JSON.stringify(imageName),
-    ];
-    db.query(sql, values, (err, result) => {
+
+    db.query(sql,  (err, result) => {
       if (err) {
         return res.status(502).send({
           success: false,
@@ -440,13 +420,14 @@ export const product_Controller = async (req, res) => {
   } catch (error) {
     return res.status(500).send({
       success: false,
-      message: "Something went wrong in the create product controller",
+      message: "Something went wrong in the getProductCategoryWise controller",
       error: error.message,
     });
   }
 };
 
 // get product Controller
+
 export const productController = async (req, res) => {
   try {
     const sql = 'select * from product';

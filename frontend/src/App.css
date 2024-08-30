@@ -116,3 +116,13 @@
     opacity:0.4;
  }
  
+ .cont {
+    overflow-x: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .cont::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, and Opera */
+  }
+  

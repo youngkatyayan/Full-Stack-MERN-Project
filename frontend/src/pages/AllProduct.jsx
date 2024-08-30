@@ -140,7 +140,7 @@ const AllProduct = () => {
                         <p className='px-4 py-1 border-2 border-red-600 hover:font-semibold rounded-full hover:bg-red-700 hover:text-white cursor-pointer' onClick={() => setPopUp(prev => !prev)} >Upload Product</p>
                     </div>
 
-                    <div className='shadow-inner p-2 flex gap-2 border flex-wrap justify-center max-h-[87vh] overflow-scroll '>
+                    <div className='shadow-inner p-2 flex gap-5 border flex-wrap justify-center max-h-[87vh] overflow-scroll '>
                         {allResult && allResult.map((item, index) => {
                             const imagesArray = JSON.parse(item.productImage);
                             const names = JSON.parse(item.image_Name);

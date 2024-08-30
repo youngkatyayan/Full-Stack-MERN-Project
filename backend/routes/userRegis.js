@@ -5,9 +5,9 @@ import {
   userRegisterController,
   userLoginController,
   userLogOutController,
-  forgetController,product_Controller,
+  forgetController,
   adminDataController, getDataController, updateController, roleController
-  , createProductController, productController, updateProductController
+  , createProductController, productController, updateProductController,getProductCategoryWise
 } from "../controller/userController.js";
 import { authToken } from "../middlewares/authMiddlewares.js";
 
@@ -41,7 +41,7 @@ router.get('/get-role/:encodedImages', roleController)
 
 //get-product
 router.get('/getproduct-data', productController)
-router.get('/get_product-data', product_Controller)
+// router.get('/get_product-data', product_Controller)
 
 
 
@@ -52,4 +52,8 @@ router.post('/create-product', (req, res, next) => {
   createProductController(req, res, next);
 })
 router.put('/update-product/:Id', updateProductController)
+
+
+// get product category wise
+router.get('/getdata_categorywise',getProductCategoryWise)
 export default router;

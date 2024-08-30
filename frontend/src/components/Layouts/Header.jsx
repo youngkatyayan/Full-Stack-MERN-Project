@@ -80,7 +80,7 @@ const Header = () => {
               </div>
             )}
             {showMenu && result[0]?.role === 'ADMIN' && (
-              <div className='absolute top-[4rem] bg-slate-100 rounded-lg box'>
+              <div className='absolute top-[4rem] bg-slate-100 rounded-lg box' style={{zIndex:'1000'}}>
                 <Link to={'/adminpage'} className='text-[1.2rem] hover:bg-[#ddd] hover:rounded-xl py-1 px-[2.5rem] whitespace-nowrap hover:-tracking-tighter' style={{ textShadow: '1px 1px 1px' }}>Admin Panel</Link>
               </div>
             )}
