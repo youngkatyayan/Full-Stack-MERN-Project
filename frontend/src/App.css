@@ -126,3 +126,45 @@
     display: none;  /* Chrome, Safari, and Opera */
   }
   
+  /* Define the text animation */
+@keyframes colorShift {
+    0% {
+      background-image: linear-gradient(45deg, #ff0000, #00ff00, #0000ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    33% {
+      background-image: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    52% {
+      background-image: linear-gradient(45deg, #666362, #5a4bc9, #c5b023);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    76% {
+      background-image: linear-gradient(45deg, #ff6600, #00cc99, #cc00ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    100% {
+      background-image: linear-gradient(45deg, #ff0000, #00ff00, #0000ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+  
+  /* Apply the animation to the text */
+  .animated-text {
+    font-size: 3em; /* Adjust the font size as needed */
+    font-weight: bold; /* Make the text bold if desired */
+    animation: colorShift 500ms linear infinite; /* Adjust the duration and timing as needed */
+    display: inline-block;
+  }
+  

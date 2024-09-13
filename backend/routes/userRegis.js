@@ -7,7 +7,7 @@ import {
   userLogOutController,
   forgetController,
   adminDataController, getDataController, updateController, roleController
-  , createProductController, productController, updateProductController,getProductCategoryWise
+  , createProductController, productController, updateProductController,getProductCategoryWise,getProductAsCategory
 } from "../controller/userController.js";
 import { authToken } from "../middlewares/authMiddlewares.js";
 
@@ -56,4 +56,6 @@ router.put('/update-product/:Id', updateProductController)
 
 // get product category wise
 router.get('/getdata_categorywise',getProductCategoryWise)
+router.post('/get-category-product',getProductAsCategory)
+
 export default router;

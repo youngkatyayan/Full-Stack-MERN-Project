@@ -336,7 +336,7 @@ export const roleController = async (req, res) => {
 // create product controller
 export const createProductController = async (req, res) => {
   try {
-    const { PName, BName, category, productImage, description, price, imageName } =
+    const { PName, BName, category, productImage, description, price, imageName, Aprice } =
       req.body;
     const fieldData = {
       PName,
@@ -345,6 +345,7 @@ export const createProductController = async (req, res) => {
       productImage,
       description,
       price,
+      Aprice,
       imageName
     };
 
@@ -355,7 +356,7 @@ export const createProductController = async (req, res) => {
     }
 
     const sql =
-      "insert into product ( prname, brname,category,productImage,description,price,image_Name) values (?,?,?,?,?,?,?)";
+      "insert into product ( prname, brname,category,productImage,description,price,Aprice,image_Name) values (?,?,?,?,?,?,?,?)";
     const values = [
       PName,
       BName,
@@ -363,7 +364,9 @@ export const createProductController = async (req, res) => {
       JSON.stringify(productImage),
       description,
       price,
+      Aprice,
       JSON.stringify(imageName),
+
     ];
     db.query(sql, values, (err, result) => {
       if (err) {
@@ -393,15 +396,14 @@ export const createProductController = async (req, res) => {
 export const getProductCategoryWise = async (req, res) => {
   try {
 
-    const sql = `   SELECT 
-    DISTINCT *
+    const sql = `SELECT DISTINCT *
 FROM 
     product
 GROUP BY 
     category`
 
 
-    db.query(sql,  (err, result) => {
+    db.query(sql, (err, result) => {
       if (err) {
         return res.status(502).send({
           success: false,
@@ -459,15 +461,15 @@ export const productController = async (req, res) => {
 export const updateProductController = async (req, res) => {
   try {
     const { Id } = req.params
-    const { PName, BName, category, description, price } = req.body
-    const fields = { PName, BName, category, description, price }
+    const { PName, BName, category, description, price, Aprice } = req.body
+    const fields = { PName, BName, category, description, price, Aprice }
     for (const [key, value] of Object.entries(fields)) {
       if (!value) {
         res.status(404).send({ error: `${key} is required` })
       }
     }
-    const sql = 'update product set prname=?, brname=?,category=?,description=?,price=? where Id=?'
-    const values = [PName, BName, category, description, price, Id]
+    const sql = 'update product set prname=?, brname=?,category=?,description=?,price=?,Aprice=? where Id=?'
+    const values = [PName, BName, category, description, price, Aprice, Id]
     db.query(sql, values, (err, result) => {
       if (err) {
         return res.status(502).send({
@@ -488,6 +490,40 @@ export const updateProductController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: 'Something went wrong inside updateProductController'
+    })
+  }
+}
+
+// get all data as category according
+export const getProductAsCategory = async (req, res) => {
+  try {
+    const { category } = req.body
+    if (!category) {
+      res.status(404).send({ error: 'category is required' })
+    }
+    const sql = 'select * from product where category=?'
+    db.query(sql, [category], (err, result) => {
+      if (err) {
+        return res.status(502).send({
+          success: false,
+          message: "Internal error",
+          error: err.message,
+        });
+      }
+      if (result.length > 0) {
+        return res.status(200).send({
+          success: true,
+          result
+        });
+      }
+
+    })
+
+  } catch (error) {
+    console.log(error.message)
+    res.status(500).send({
+      success: false,
+      message: 'Something went wrong inside getProductAsCategory'
     })
   }
 }

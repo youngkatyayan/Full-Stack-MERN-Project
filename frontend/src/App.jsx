@@ -13,12 +13,13 @@ import { useNavigate } from 'react-router-dom';
 import AllProduct from './pages/AllProduct.jsx'
 import Pagenotfound from './pages/PageNotFound.jsx'
 import { useSelector } from 'react-redux'
+import CategoryProduct from './components/helpers/CategoryProduct.jsx'
 const App = () => {
   const navigate = useNavigate();
   const role = sessionStorage.getItem('role')
   const user = useSelector((state) => state?.user?.user);
   useEffect(() => {
-    const token = localStorage.getItem('token'); 
+    const token = localStorage.getItem('token');
 
     const isTokenExpired = (token) => {
       if (!token) return true;
@@ -34,7 +35,7 @@ const App = () => {
     };
 
     if (isTokenExpired(token)) {
-      localStorage.removeItem('token'); 
+      localStorage.removeItem('token');
       navigate('/login');
     }
   }, [navigate]);
@@ -52,7 +53,8 @@ const App = () => {
         <Route path='/adminpage' element={<AdminPage />}> </Route>
         <Route path='/adminpage/allusers' element={<Allusers />} />
         <Route path='/adminpage/allproject' element={<AllProduct />} />
-
+        <Route path='/product-category/:categoryName' element={<CategoryProduct/>}/>
+       
       </Routes>
     </>
   )
