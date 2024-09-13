@@ -57,13 +57,31 @@ const VerticalCartProduct = ({ category, heading }) => {
                     {
                         loading ? (
                             loadingList.map(el => (
-                                <div key={el + 1} className='w-[35rem] max-h-[8.3rem] border-2 shadow-md flex  bg-white'>
+                                <div key={el} className='w-[17rem] h-[23rem] border-2 rounded-md  pb-2 shadow-md flex flex-col bg-white' style={{ transform: `translateX(-${transform}px)` }}>
+
+                                    <div className='h-full w-full overflow-hidden shadow-md shadow-slate-300 bg-slate-200 transition-all p-2 animate-pulse '>
+                                        {/* <img src={JSON.parse(url.productImage)} alt="" className='object-contain h-full w-full hover:scale-110 transition-all mix-blend-multiply' /> */}
+                                    </div>
+
+                                    <div className='p-2 w-full flex flex-col gap-2 '>
+
+                                        <p className=' text-ellipsis line-clamp-2 font-semibold py-0.5 animate-pulse bg-slate-200'></p>
+                                        <p className='capitalize text-balance text-sm py-0.5 animate-pulse bg-slate-200'></p>
+
+                                        <div className=' flex items-center gap-2 text-sm py-1 animate-pulse bg-slate-200'>
+                                            <p className='flex items-center py-0.5 animate-pulse bg-slate-200 font-semibold'> </p>
+                                            <strike className='flex items-center py-0.5 animate-pulse bg-slate-200'></strike>
+                                        </div>
+
+                                        <Link to={''} className=' hover:font-semibold px-2 rounded-full text-center font-semibold text-white py-1 text-sm  animate-pulse bg-slate-200'></Link>
+
+                                    </div>
                                 </div>
                             ))
                         )
                             : (
                                 data && data.map((url, index) => (
-                                    <div key={url.category + 1 + index} className='w-[17rem] max-h-[23rem] border-2 rounded-md  pb-2 shadow-md flex flex-col bg-white' style={{ transform: `translateX(-${transform}px)` }}>
+                                    <div key={url.category + 1 + index} className='min-w-[16.8rem] max-w-[16.8rem]  max-h-[23rem] border-2 rounded-md  pb-2 shadow-md flex flex-col bg-white' style={{ transform: `translateX(-${transform}px)` }}>
 
                                         <div className='h-full w-full overflow-hidden shadow-md shadow-slate-300 bg-slate-300 transition-all p-2'>
                                             <img src={JSON.parse(url.productImage)} alt="" className='object-contain h-full w-full hover:scale-110 transition-all mix-blend-multiply' />

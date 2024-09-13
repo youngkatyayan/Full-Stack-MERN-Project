@@ -21,7 +21,7 @@ const Layouts = (props) => {
     return (
         <>
             <Context.Provider value={{ handletoken }}>
-                <Header className='h-16 ' />
+                <Header className='h-16  ' />
                 <main style={{ minHeight: '85vh' }}>
                     {props.children}
                 </main>

@@ -14,6 +14,7 @@ import AllProduct from './pages/AllProduct.jsx'
 import Pagenotfound from './pages/PageNotFound.jsx'
 import { useSelector } from 'react-redux'
 import CategoryProduct from './components/helpers/CategoryProduct.jsx'
+import ProductDetails from './pages/ProductDetails.jsx'
 const App = () => {
   const navigate = useNavigate();
   const role = sessionStorage.getItem('role')
@@ -54,6 +55,7 @@ const App = () => {
         <Route path='/adminpage/allusers' element={<Allusers />} />
         <Route path='/adminpage/allproject' element={<AllProduct />} />
         <Route path='/product-category/:categoryName' element={<CategoryProduct/>}/>
+        <Route path='/product/:id' element={<ProductDetails/>}/>
        
       </Routes>
     </>

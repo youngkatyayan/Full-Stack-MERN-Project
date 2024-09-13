@@ -16,7 +16,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state?.user?.user);
   // console.log(user)
-  
+
   const handleAdmin = async () => {
     setShowMenu(prev => !prev);
     const encodedImages = images ? encodeURIComponent(images) : '';
@@ -25,8 +25,8 @@ const Header = () => {
         const { data } = await axios.get(`/api/v1/get-role/${encodedImages}`);
         if (data.success) {
           setResult(data.result);
-          const role=data.result[0].role
-          sessionStorage.setItem('role',role)
+          const role = data.result[0].role
+          sessionStorage.setItem('role', role)
         } else {
           console.error('Error fetching admin data:', data.error);
           sessionStorage.removeItem('role')
@@ -55,8 +55,10 @@ const Header = () => {
   };
   return (
     <>
-      <div className='h-16 px-5 sm:px-10 shadow-lg'>
+      <div className='h-16 px-5 sm:px-10 shadow-lg sticky top-0 z-50 w-full bg-white '>
+
         <Toaster />
+
         <div className='mx-auto container flex items-center justify-between'>
           <Link to={'/'} className='flex items-center no-wrap'>
             <img className='h-16 w-36' src={logo} alt="Logo" />
@@ -70,6 +72,7 @@ const Header = () => {
           </div>
 
           <div className='flex items-center justify-between gap-3 sm:gap-7'>
+
             {user && (
               <div>
                 {images ? (
@@ -79,11 +82,13 @@ const Header = () => {
                 )}
               </div>
             )}
+
             {showMenu && result[0]?.role === 'ADMIN' && (
-              <div className='absolute top-[4rem] bg-slate-100 rounded-lg box' style={{zIndex:'1000'}}>
+              <div className='absolute top-[4rem] bg-slate-100 rounded-lg box' style={{ zIndex: '1000' }}>
                 <Link to={'/adminpage'} className='text-[1.2rem] hover:bg-[#ddd] hover:rounded-xl py-1 px-[2.5rem] whitespace-nowrap hover:-tracking-tighter' style={{ textShadow: '1px 1px 1px' }}>Admin Panel</Link>
               </div>
             )}
+
             <div className='relative flex'>
               <FaShoppingCart className='text-xl' />
               <div className='bg-red-600 flex items-center justify-center absolute -top-2 left-2 w-4 h-4 rounded-full'>
@@ -98,7 +103,9 @@ const Header = () => {
                 <Link to={'/login'} className='flex justify-center items-center bg-red-600 px-3 text-white pb-1 rounded-2xl hover:bg-red-500'>Login</Link>
               )}
             </div>
+
           </div>
+
         </div>
       </div>
     </>
