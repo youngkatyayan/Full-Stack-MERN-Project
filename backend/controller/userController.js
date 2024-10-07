@@ -1,68 +1,66 @@
 import db from "../utils/db.js";
 import jwt from "jsonwebtoken";
+
 import { uploadFile } from "../middlewares/cloudinaryMiddlewares.js";
-// register controller
+// import db from '../config/dbConnection.js'; // Your DB connection
+
 export const userRegisterController = async (req, res) => {
   try {
     const { name, username, pass, email, phone } = req.body;
-    if (!name) return res.status(502).send({ error: "Name is required" });
-    if (!username)
-      return res.status(502).send({ error: "Username is required" });
-    if (!pass) return res.status(502).send({ error: "Password is required" });
-    if (!email) return res.status(502).send({ error: "Email is required" });
-    if (!phone) return res.status(502).send({ error: "Phone is required" });
+
+    // Validate required fields
+    if (!name || !username || !pass || !email || !phone) {
+      return res.status(400).send({ error: "All fields are required" });
+    }
+
+    // Check if an image file was uploaded
+    if (!req.file) {
+      return res.status(400).send({ error: "Image file is required" });
+    }
+
+    // Upload file to Cloudinary (or any other service)
     const imageUrl = await uploadFile(req.file.path);
-    if (!imageUrl)
-      return res.status(502).send({ error: "imageUrl is required" });
+    if (!imageUrl || !imageUrl.url) {
+      return res.status(502).send({ error: "Error uploading image" });
+    }
+
     const imagesName = imageUrl.url;
-    console.log("ok", imagesName);
-    const sql = "SELECT * FROM signup WHERE email=?";
+
+    const sql = "SELECT * FROM signup WHERE email = ?";
     const values = [email];
     db.query(sql, values, (err, result) => {
       if (err) {
-        return res.status(500).send({
-          success: false,
-          message: "Internal server error",
-          error: err.message,
-        });
+        return res.status(500).send({ success: false, message: "Database error", error: err.message });
       }
+
       if (result.length > 0) {
-        return res.status(200).send({
-          success: true,
-          message: "User already registered",
-          result,
-        });
-      } else {
-        const sql1 =
-          "INSERT INTO signup (name, email, pass, username, phone, images) VALUES (?, ?, ?, ?, ?, ?)";
-        const values1 = [name, email, pass, username, phone, imagesName];
-        db.query(sql1, values1, (inerr, result) => {
-          if (inerr) {
-            return res.status(500).send({
-              success: false,
-              message: "Invalid registration",
-              error: inerr.message,
-            });
-          }
-          if (result) {
-            return res.status(200).send({
-              success: true,
-              message: "User successfully registered",
-              result,
-            });
-          }
-        });
+        return res.status(409).send({ success: false, message: "User already exists" });
       }
+
+      // Insert new user into the database
+      const sql1 = "INSERT INTO signup (name, email, pass, username, phone, images) VALUES (?, ?, ?, ?, ?, ?)";
+      const values1 = [name, email, pass, username, phone, imagesName];
+
+      db.query(sql1, values1, (inerr, result) => {
+        if (inerr) {
+          return res.status(500).send({ success: false, message: "Registration failed", error: inerr.message });
+        }
+
+        return res.status(201).send({ success: true, message: "User successfully registered", result });
+      });
     });
   } catch (error) {
-    console.error("Error in registration controller:", error); // Log the error
     return res.status(500).send({
       success: false,
-      message: "Something went wrong with the registration controller",
+      message: "Internal server error",
       error: error.message,
     });
   }
 };
+
+
+
+
 // login controller
 export const userLoginController = async (req, res) => {
   try {
@@ -524,6 +522,33 @@ export const getProductAsCategory = async (req, res) => {
     res.status(500).send({
       success: false,
       message: 'Something went wrong inside getProductAsCategory'
+    })
+  }
+}
+// get data id wise
+export const getIdwiseDataController = async (req, res) => {
+  try {
+    const { param } = req.body
+    const sql = 'select * from product where Id=?'
+    db.query(sql, [param], (err, result) => {
+      if (err) {
+        console.log(err.message)
+        res.status(502).send({
+          success: false,
+          message: 'Internal Server Error'
+        })
+      }
+      res.status(200).send({
+        success: true,
+        message: 'Successfully Access',
+        result
+      })
+    })
+  } catch (error) {
+    console.log(error.message)
+    res.status(500).send({
+      success: false,
+      message: 'Something went wrong inside getIdwiseDataController'
     })
   }
 }

@@ -23,16 +23,22 @@ const AllProduct = () => {
         productImage: [],
         description: '',
         price: '',
-        Aprice:''
+        Aprice: ''
     })
-    const [imageName, setImageName] = useState([])
+    // console.log(allResult)
 
+
+    const [imageName, setImageName] = useState([])
+    // console.log(allResult)
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
             const response = await axios.post('/api/v1/create-product', { ...values, imageName });
             if (response.data.success) {
                 toast.success(response.data.message)
+                setValues({})
+                setImageName([])
+                window.location.reload()
             }
             setPopUp(false)
 
@@ -89,6 +95,13 @@ const AllProduct = () => {
             const { data } = await axios.get('/api/v1/getproduct-data')
             if (data.success) {
                 setResult(data.result)
+                // try {
+                //     const productData = data.result[4];
+                //     console.log(productData.image_Name);
+
+                // } catch (error) {
+                //     console.error('Error parsing image names:', error);
+                // }
 
             }
         } catch (error) {
@@ -154,11 +167,11 @@ const AllProduct = () => {
 
                                             <img width={180} height={160} className='object-contain w-full max-h-40' src={image} alt={`Product ${item.prname} ${imgIndex + 1}`} />
 
-                                            <p className='line-clamp-2 text-[0.8rem] m-2  text-ellipsis'>
+                                            {/* <p className='line-clamp-2 text-[0.8rem] m-2  text-ellipsis'>
                                             { names[imgIndex] || [`Image ${imgIndex + 1}`]}
 
 
-                                            </p>
+                                            </p> */}
 
                                             <p className='font-semibold flex items-center mb-1'>
                                                 <MdCurrencyRupee />{item.price}
@@ -188,7 +201,7 @@ const AllProduct = () => {
 
                     {popUp && (
                         <div className={`mx-auto w-[75%] min-h-[calc(100vh-5.2rem)] border-2 z-10 absolute top-2 bg-white left-28 ${imgPrev && 'backdrop-filter backdrop-blur-[10px]'}`}>
-                           
+
                             <div className='flex items-center justify-between px-3 py-2 bg-white shadow-md'>
                                 <p className='text-xl font-semibold'>Upload Product</p>
                                 <RxCross2 className='text-xl' onClick={() => setPopUp(false)} />

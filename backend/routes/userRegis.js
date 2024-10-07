@@ -1,32 +1,42 @@
 import express from "express";
 import multer from "multer";
 import path from "path";
+import fs from 'fs'
 import {
   userRegisterController,
   userLoginController,
   userLogOutController,
   forgetController,
-  adminDataController, getDataController, updateController, roleController
+  adminDataController, getDataController, updateController, roleController,getIdwiseDataController
   , createProductController, productController, updateProductController,getProductCategoryWise,getProductAsCategory
 } from "../controller/userController.js";
 import { authToken } from "../middlewares/authMiddlewares.js";
 
 const router = express.Router();
-const uploadDir = path.resolve('X:/Desktop/E-Commerce/backend/images');
+
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadDir);
+  destination: (req, file, cb) => {
+    const uploadPath = 'uploads/';
+
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true }); 
+    }
+
+    cb(null, uploadPath);
   },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname); 
+  }
 });
 
-// Create the upload middleware
-export const upload = multer({ storage: storage });
+export const upload = multer({ storage });
 
-// Define the routes and attach the middleware/controllers
-router.post("/register", upload.single("images"), userRegisterController);
+// Define the route for handling registration
+router.post('/register', upload.single('images'), (req, res, next) => {
+  userRegisterController(req, res, next);
+});
+
+// router.post("/register", userRegisterController);
 router.post("/login", userLoginController);
 router.get("/logout", userLogOutController);
 router.put('/forget-password', forgetController);
@@ -57,5 +67,6 @@ router.put('/update-product/:Id', updateProductController)
 // get product category wise
 router.get('/getdata_categorywise',getProductCategoryWise)
 router.post('/get-category-product',getProductAsCategory)
+router.post('/get-preview-id',getIdwiseDataController)
 
 export default router;

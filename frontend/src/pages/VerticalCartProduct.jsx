@@ -7,7 +7,7 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 const VerticalCartProduct = ({ category, heading }) => {
     const [data, setData] = useState([])
     const [loading, setloading] = useState(false)
-    const loadingList = new Array(data.length).fill(null)
+    const loadingList = new Array(5).fill(null)
     const [transform, setTransform] = useState(0)
     // console.log("first,",category)
     // const xyx=JSON.parse(category)
@@ -80,29 +80,35 @@ const VerticalCartProduct = ({ category, heading }) => {
                             ))
                         )
                             : (
-                                data && data.map((url, index) => (
-                                    <div key={url.category + 1 + index} className='min-w-[16.8rem] max-w-[16.8rem]  max-h-[23rem] border-2 rounded-md  pb-2 shadow-md flex flex-col bg-white' style={{ transform: `translateX(-${transform}px)` }}>
+                                data && data.map((url, index) => {
 
-                                        <div className='h-full w-full overflow-hidden shadow-md shadow-slate-300 bg-slate-300 transition-all p-2'>
-                                            <img src={JSON.parse(url.productImage)} alt="" className='object-contain h-full w-full hover:scale-110 transition-all mix-blend-multiply' />
-                                        </div>
+                                    const imageArray = JSON.parse(url.productImage)
+                                    const name = JSON.parse(url.image_Name)
+                                    return (
+                                        <div key={url.category + 1 + index} className='min-w-[16.8rem] max-w-[16.8rem]  max-h-[23rem] border-2 rounded-md  pb-2 shadow-md flex flex-col bg-white' style={{ transform: `translateX(-${transform}px)` }}>
 
-                                        <div className='p-2 w-full flex flex-col gap-2 '>
-
-                                            <p className=' text-ellipsis line-clamp-2 font-semibold'>{JSON.parse(url.image_Name)}</p>
-                                            <p className='capitalize text-balance text-sm text-[#5b5959]'>{url.category}</p>
-
-                                            <div className=' flex items-center gap-2 text-sm'>
-                                                <p className='flex items-center text-red-600 font-semibold'> <FaRupeeSign className='text-[.8rem]' />{url.price}.00</p>
-                                                <strike className='flex items-center text-[#504f4f]'><FaRupeeSign className='text-[.8rem]' /><pre className=' '>{url.Aprice}.00</pre></strike>
+                                            <div className='h-full w-full overflow-hidden shadow-md shadow-slate-300 bg-slate-300 transition-all p-2'>
+                                                <img src={imageArray[0]} alt="" className='object-contain h-full w-full hover:scale-110 transition-all mix-blend-multiply' />
                                             </div>
 
-                                            <Link to={''} className='bg-red-600 hover:bg-white border-2 w-full hover:text-black hover:font-semibold border-red-800 px-2 rounded-full text-center font-semibold text-white py-1 text-sm'>Add to Cart</Link>
+                                            <div className='p-2 w-full flex flex-col gap-2 '>
+
+                                                <p className=' text-ellipsis line-clamp-2 font-semibold'>{name[0]}</p>
+                                                <p className='capitalize text-balance text-sm text-[#5b5959]'>{url.category}</p>
+
+                                                <div className=' flex items-center gap-2 text-sm'>
+                                                    <p className='flex items-center text-red-600 font-semibold'> <FaRupeeSign className='text-[.8rem]' />{url.price}.00</p>
+                                                    <strike className='flex items-center text-[#504f4f]'><FaRupeeSign className='text-[.8rem]' /><pre className=' '>{url.Aprice}.00</pre></strike>
+                                                </div>
+
+                                                <Link to={''} className='bg-red-600 hover:bg-white border-2 w-full hover:text-black hover:font-semibold border-red-800 px-2 rounded-full text-center font-semibold text-white py-1 text-sm'>Add to Cart</Link>
+
+                                            </div>
 
                                         </div>
-
-                                    </div>
-                                )))
+                                    )
+                                }
+                                ))
                     }
                 </div>
             </div>
